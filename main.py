@@ -51,6 +51,7 @@ for index, row in df.iterrows():
 row_indexs = df_2[df_2['activity'] == ''].index
 df_2.drop(row_indexs, inplace=True)
 
+print(df_2)
 # ## Decision Tree
 
 # Define the features and target variable
