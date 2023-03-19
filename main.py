@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import LabelEncoder
 
 # ## results_LHR_AMS
 df = pd.read_csv('Data/results_LHR_AMS.csv', sep=";", parse_dates=True)
@@ -52,11 +53,22 @@ row_indexs = df_2[df_2['activity'] == ''].index
 df_2.drop(row_indexs, inplace=True)
 
 print(df_2)
+
+## LabelEncoder
+# text column
+text_columns = df_2.select_dtypes(include=['object']).columns.tolist()
+le = LabelEncoder()
+df_encoded = df_2
+for col in text_columns:
+    df_encoded[col] = le.fit_transform(df_encoded[col])
+df_encoded.to_csv('Data/encoded_data.csv', index=False)
+print(df_encoded)
+
 # ## Decision Tree
 
 # Define the features and target variable
-X = df_2[['truckNumber', 'speed']]
-y = df_2['activity']
+X = df_encoded[['truckNumber', 'speed']]
+y = df_encoded['activity']
 
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
