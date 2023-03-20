@@ -2,10 +2,15 @@ import pandas as pd
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
 # decision tree
+from decisiontree import *
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
+#select feature
+#selectKBest
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import f_classif
 
 # ## results_LHR_AMS
 df = pd.read_csv('Data/results_LHR_AMS.csv', sep=";", parse_dates=True)
@@ -66,25 +71,36 @@ print(df_encoded)
 
 # ## Decision Tree
 
+#all_features
+all_features = df_encoded.columns.tolist()
+all_features.remove('activity')
+all_features.remove('time')
+all_features.remove('timestamp')
+
+# initial value
 # Define the features and target variable
-X = df_encoded[['truckNumber', 'speed']]
+X = df_encoded[all_features]
 y = df_encoded['activity']
+pre_accuracy_score = decision_tree(X, y)
+current_accuracy_score = pre_accuracy_score
+num_feature = len(all_features)
+data_objects = []
+new_features = all_features
+while (pre_accuracy_score <= current_accuracy_score) and (current_accuracy_score >= 0.8):
+    data_objects = new_features
+    num_feature = num_feature - 1
+    # select feature
+    selector = SelectKBest(score_func=f_classif, k=num_feature)  # 选择 F 统计量作为评分函数
+    selector.fit(X, y)
+    # print selected feature
+    mask = selector.get_support()  # 获取掩码
+    new_features = X.columns[mask]  # 获取选择的特征名称
+    print(new_features)
 
-# Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+    X = df_encoded[new_features]
+    # decision tree
+    current_accuracy_score = decision_tree(X, y)
 
-# Create a decision tree classifier
-clf = DecisionTreeClassifier()
-
-# Fit the classifier on the training data
-clf.fit(X_train, y_train)
-
-# Use the trained classifier to make predictions on the testing data
-y_pred = clf.predict(X_test)
-
-# Evaluate the accuracy of the classifier
-accuracy = accuracy_score(y_test, y_pred)
-print('Accuracy:', accuracy)
-
+print('data_objects:',data_objects)
 
 
