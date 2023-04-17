@@ -1,21 +1,52 @@
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score
-def decision_tree(X,y):
+from sklearn.tree import _tree
+import numpy as np
+def get_rules(tree, feature_names, class_names):
+    tree_ = tree.tree_
+    feature_name = [
+        feature_names[i] if i != _tree.TREE_UNDEFINED else "undefined!"
+        for i in tree_.feature
+    ]
 
-    # Split the data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+    paths = []
+    path = []
 
-    # Create a decision tree classifier
-    clf = DecisionTreeClassifier()
+    def recurse(node, path, paths):
 
-    # Fit the classifier on the training data
-    clf.fit(X_train, y_train)
+        if tree_.feature[node] != _tree.TREE_UNDEFINED:
+            name = feature_name[node]
+            threshold = tree_.threshold[node]
+            p1, p2 = list(path), list(path)
+            p1 += [f"({name} <= {np.round(threshold, 3)})"]
+            recurse(tree_.children_left[node], p1, paths)
+            p2 += [f"({name} > {np.round(threshold, 3)})"]
+            recurse(tree_.children_right[node], p2, paths)
+        else:
+            path += [(tree_.value[node], tree_.n_node_samples[node])]
+            paths += [path]
 
-    # Use the trained classifier to make predictions on the testing data
-    y_pred = clf.predict(X_test)
+    recurse(0, path, paths)
 
-    # Evaluate the accuracy of the classifier
-    accuracy = accuracy_score(y_test, y_pred)
-    print('Accuracy:', accuracy)
-    return accuracy
+    # sort by samples count
+    samples_count = [p[-1][1] for p in paths]
+    ii = list(np.argsort(samples_count))
+    paths = [paths[i] for i in reversed(ii)]
+
+    rules = []
+    for path in paths:
+        rule = "if "
+
+        for p in path[:-1]:
+            if rule != "if ":
+                rule += " and "
+            rule += str(p)
+        rule += " then "
+        if class_names is None:
+            rule += "response: " + str(np.round(path[-1][0][0][0], 3))
+        else:
+            classes = path[-1][0][0]
+            l = np.argmax(classes)
+            rule += f"class: {class_names[l]} (proba: {np.round(100.0 * classes[l] / np.sum(classes), 2)}%)"
+        rule += f" | based on {path[-1][1]:,} samples"
+        rules += [rule]
+
+    return rules
