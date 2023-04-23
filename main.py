@@ -57,6 +57,7 @@ predict_actual = clf.predict(x_test)
 accuracy_acutal=clf.score(x_test,y_test)
 classification_result = classification_report(y_test,predict_actual)
 print(predict_actual,accuracy_acutal,classification_result,sep='\n')
+all_features.remove('mainShipmentRouteNumber')
 rules = get_rules(clf,all_features , ['Connection','Drive','Load','Pause'])
 for r in rules:
     print(r)
