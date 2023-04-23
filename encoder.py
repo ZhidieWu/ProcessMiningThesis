@@ -1,7 +1,7 @@
 import pandas as pd
 def encodeStringColumn(newdf):
-    # only remain the artifact-related column
-    newdf = newdf.loc[:, ['speed', 'city', 'country', 'activity']]
+    # remain the artifact-related column and selected column(for split data)
+    newdf = newdf.loc[:, ['mainShipmentRouteNumber','speed', 'city', 'country', 'activity']]
     # change activity to unique int
     newdf['activity'], _ = pd.factorize(newdf['activity'])
     # one-hot encoding

@@ -12,6 +12,7 @@ def createInputCSV(df,df_2):
                 new_row = df_2.iloc[index2]
                 new_row['activity'] = startActivity
                 newdf = newdf.append(new_row, ignore_index=True)
+                #newdf = pd.concat(objs=[newdf, new_row])
     newdf = newdf.sort_values('activity', ascending=True)
     newdf.to_csv('Data/activityStartDf.csv', index=False)
 

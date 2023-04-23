@@ -45,7 +45,8 @@ def get_rules(tree, feature_names, class_names):
         else:
             classes = path[-1][0][0]
             l = np.argmax(classes)
-            rule += f"class: {class_names[l]} (proba: {np.round(100.0 * classes[l] / np.sum(classes), 2)}%)"
+            #(proba: {np.round(100.0 * classes[l] / np.sum(classes), 2)
+            rule += f"class: {class_names[l]}%)"
         rule += f" | based on {path[-1][1]:,} samples"
         rules += [rule]
 
