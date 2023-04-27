@@ -1,19 +1,26 @@
 import pandas as pd
-import statsmodels.api as sm
-import matplotlib.pyplot as plt
+import classfications
 #decision tree
-from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score, classification_report
-from sklearn.preprocessing import LabelEncoder
+from classficationrules import decision_tree_rules
+#Random forest
+from sklearn.ensemble import RandomForestClassifier
+from classficationrules import random_forest_rules
+#knn
+from sklearn.neighbors import KNeighborsClassifier
+#Logistic Regression Classfier
+from sklearn.linear_model import LogisticRegression
+# Gradient Boosting Decision Tree
+from sklearn.ensemble import GradientBoostingClassifier
+#Naive Bayes
+from sklearn.naive_bayes import  MultinomialNB
 
-# ## results_LHR_AMS
-from decisiontree import get_rules
-from addactivitycolumn import addActivity
+# ## Preprocess
 from preprocessInput import createInputCSV
 from encoder import encodeStringColumn
 from splitdata import split_data
 ############### Preprocess ##############
+"""
 print("#########################Preprocess#########################")
 df = pd.read_csv('Data/results_LHR_AMS.csv', sep=";", parse_dates=True)
 
@@ -29,12 +36,14 @@ createInputCSV(df,df_2)
 
 ### add column activity
 #addActivity(df, df_2)
+
 print("##############################################################")
 ## LabelEncoder
 print("#########################Label Encoder#########################")
 newdf = pd.read_csv('Data/activityStartDf.csv')
 df_encoded_input= encodeStringColumn(newdf)
 df_encoded_input.to_csv('Data/df_encoded_input.csv', index=False)
+"""
 df_encoded_input = pd.read_csv('Data/df_encoded_input.csv')
 print("##############################################################")
 ############### Decision Tree #################
@@ -48,17 +57,25 @@ print(x_train)
 print(y_train)
 print(x_test)
 print(y_test)
-print("##############################################################")
 print("########################Classification########################")
+print("1. Decision Tree")
 clf = DecisionTreeClassifier(random_state=1234)
-model = clf.fit(x_train, y_train)
-#decision_function = clf.decision_function(x_test)
-predict_actual = clf.predict(x_test)
-accuracy_acutal=clf.score(x_test,y_test)
-classification_result = classification_report(y_test,predict_actual)
-print(predict_actual,accuracy_acutal,classification_result,sep='\n')
+model = classfications.show_classification_report(clf,x_train,y_train,x_test,y_test)
 all_features.remove('mainShipmentRouteNumber')
-rules = get_rules(model,all_features , ['Connection','Drive','Load','Pause'])
+rules = decision_tree_rules(model,all_features , ['Connection','Drive','Load','Pause'])
 for r in rules:
     print(r)
+print("2. Random Forest")
+clf = RandomForestClassifier(n_estimators=2)
+model = classfications.show_classification_report(clf,x_train,y_train,x_test,y_test)
+random_forest_rules(model)
+print("3. KNN algorithm")
+clf = KNeighborsClassifier()
+classfications.show_classification_report(clf,x_train,y_train,x_test,y_test)
+print("4. Gradient Boosting Decision Tree")
+clf = GradientBoostingClassifier(n_estimators = 200)
+model=classfications.show_classification_report(clf,x_train,y_train,x_test,y_test)
+print("5. Multinomial Naive Bayes Classifier")
+clf = MultinomialNB(alpha=0.01)
+classfications.show_classification_report(clf,x_train,y_train,x_test,y_test)
 print("##############################################################")
