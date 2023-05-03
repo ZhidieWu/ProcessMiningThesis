@@ -1,0 +1,103 @@
+{
+    "DataObjects": [
+        {
+            "state": "(speed > 41.0)",
+            "artifact": "Container",
+            "sourceRef": [
+                {
+                    "name": "Drive"
+                }
+            ]
+        },
+        {
+            "state": "(speed <= 41.0),(city_London Heathrow Airport > 0.5)",
+            "artifact": "Container",
+            "sourceRef": [
+                {
+                    "name": "Load"
+                }
+            ]
+        },
+        {
+            "state": "(speed <= 41.0),(city_London Heathrow Airport <= 0.5),(country_GB <= 0.5),(speed <= 21.0)",
+            "artifact": "Container",
+            "sourceRef": [
+                {
+                    "name": "Pause"
+                }
+            ]
+        },
+        {
+            "state": "(speed <= 41.0),(city_London Heathrow Airport <= 0.5),(country_GB > 0.5),(city_Lower Kingswood <= 0.5),(city_Newington > 0.5)",
+            "artifact": "Container",
+            "sourceRef": [
+                {
+                    "name": "Connection"
+                }
+            ]
+        },
+        {
+            "state": "(speed <= 41.0),(city_London Heathrow Airport <= 0.5),(country_GB > 0.5),(city_Lower Kingswood > 0.5)",
+            "artifact": "Container",
+            "sourceRef": [
+                {
+                    "name": "Load"
+                }
+            ]
+        },
+        {
+            "state": "(speed <= 41.0),(city_London Heathrow Airport <= 0.5),(country_GB > 0.5),(city_Lower Kingswood <= 0.5),(city_Newington <= 0.5),(speed <= 23.0),(city_Peene <= 0.5),(city_Folkestone <= 0.5)",
+            "artifact": "Container",
+            "sourceRef": [
+                {
+                    "name": "Pause"
+                }
+            ]
+        },
+        {
+            "state": "(speed <= 41.0),(city_London Heathrow Airport <= 0.5),(country_GB <= 0.5),(speed > 21.0),(speed > 26.0)",
+            "artifact": "Container",
+            "sourceRef": [
+                {
+                    "name": "Pause"
+                }
+            ]
+        },
+        {
+            "state": "(speed <= 41.0),(city_London Heathrow Airport <= 0.5),(country_GB > 0.5),(city_Lower Kingswood <= 0.5),(city_Newington <= 0.5),(speed > 23.0)",
+            "artifact": "Container",
+            "sourceRef": [
+                {
+                    "name": "Connection"
+                }
+            ]
+        },
+        {
+            "state": "(speed <= 41.0),(city_London Heathrow Airport <= 0.5),(country_GB > 0.5),(city_Lower Kingswood <= 0.5),(city_Newington <= 0.5),(speed <= 23.0),(city_Peene > 0.5)",
+            "artifact": "Container",
+            "sourceRef": [
+                {
+                    "name": "Connection"
+                }
+            ]
+        },
+        {
+            "state": "(speed <= 41.0),(city_London Heathrow Airport <= 0.5),(country_GB <= 0.5),(speed > 21.0),(speed <= 26.0)",
+            "artifact": "Container",
+            "sourceRef": [
+                {
+                    "name": "Drive"
+                }
+            ]
+        },
+        {
+            "state": "(speed <= 41.0),(city_London Heathrow Airport <= 0.5),(country_GB > 0.5),(city_Lower Kingswood <= 0.5),(city_Newington <= 0.5),(speed <= 23.0),(city_Peene <= 0.5),(city_Folkestone > 0.5)",
+            "artifact": "Container",
+            "sourceRef": [
+                {
+                    "name": "Connection"
+                }
+            ]
+        }
+    ]
+}

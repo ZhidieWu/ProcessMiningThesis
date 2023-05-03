@@ -1,7 +1,7 @@
 from sklearn.tree import _tree
 import numpy as np
 import numpy
-def decision_tree_rules(tree, feature_names, class_names):
+def decision_tree_rules(tree, feature_names, class_names, dataobject_type):
     tree_ = tree.tree_
     feature_name = [
         feature_names[i] if i != _tree.TREE_UNDEFINED else "undefined!"
@@ -32,14 +32,26 @@ def decision_tree_rules(tree, feature_names, class_names):
     ii = list(np.argsort(samples_count))
     paths = [paths[i] for i in reversed(ii)]
 
+    dictforjson = {}
+    dictforjson['DataObjects'] = []
     rules = []
     for path in paths:
+        DataObjects_dict = {}
+        object_dict = {}
+        ref_list = []
+        state_str = ""
+
+
         rule = "if "
 
         for p in path[:-1]:
             if rule != "if ":
                 rule += " and "
+                state_str += ","
             rule += str(p)
+            state_str += str(p)
+        print(state_str)
+        DataObjects_dict['state'] = state_str
         rule += " then "
         if class_names is None:
             rule += "response: " + str(np.round(path[-1][0][0][0], 3))
@@ -48,10 +60,18 @@ def decision_tree_rules(tree, feature_names, class_names):
             l = np.argmax(classes)
             #(proba: {np.round(100.0 * classes[l] / np.sum(classes), 2)
             rule += f"class: {class_names[l]}%)"
+            DataObjects_dict['artifact'] = "Container"
+            object_dict['name'] = str(class_names[l])
+            ref_list.append(object_dict)
+            if dataobject_type == 'input':
+                DataObjects_dict['sourceRef'] = ref_list
+            else:
+                DataObjects_dict['targetRef'] = ref_list
         rule += f" | based on {path[-1][1]:,} samples"
         rules += [rule]
+        dictforjson['DataObjects'].append(DataObjects_dict)
 
-    return rules
+    return rules,dictforjson
 
 def random_forest_rules(rf):
 

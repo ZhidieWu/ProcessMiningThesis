@@ -1,0 +1,67 @@
+{
+    "DataObjects": [
+        {
+            "state": "(speed <= 41.0),(country_FR <= 0.5)",
+            "artifact": "Container",
+            "targetRef": [
+                {
+                    "name": "Drive"
+                }
+            ]
+        },
+        {
+            "state": "(speed > 41.0),(city_London Heathrow Airport <= 0.5),(city_Slough <= 0.5),(speed <= 88.0)",
+            "artifact": "Container",
+            "targetRef": [
+                {
+                    "name": "Pause"
+                }
+            ]
+        },
+        {
+            "state": "(speed > 41.0),(city_London Heathrow Airport > 0.5)",
+            "artifact": "Container",
+            "targetRef": [
+                {
+                    "name": "Load"
+                }
+            ]
+        },
+        {
+            "state": "(speed <= 41.0),(country_FR > 0.5)",
+            "artifact": "Container",
+            "targetRef": [
+                {
+                    "name": "Connection"
+                }
+            ]
+        },
+        {
+            "state": "(speed > 41.0),(city_London Heathrow Airport <= 0.5),(city_Slough <= 0.5),(speed > 88.0),(country_GB <= 0.5)",
+            "artifact": "Container",
+            "targetRef": [
+                {
+                    "name": "Pause"
+                }
+            ]
+        },
+        {
+            "state": "(speed > 41.0),(city_London Heathrow Airport <= 0.5),(city_Slough <= 0.5),(speed > 88.0),(country_GB > 0.5)",
+            "artifact": "Container",
+            "targetRef": [
+                {
+                    "name": "Drive"
+                }
+            ]
+        },
+        {
+            "state": "(speed > 41.0),(city_London Heathrow Airport <= 0.5),(city_Slough > 0.5)",
+            "artifact": "Container",
+            "targetRef": [
+                {
+                    "name": "Load"
+                }
+            ]
+        }
+    ]
+}
