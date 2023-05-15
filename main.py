@@ -23,7 +23,7 @@ from splitdata import split_data
 import json
 from processJson import processjson
 ############### Preprocess ##############
-
+'''
 print("#########################Preprocess#########################")
 df = pd.read_csv('Data/results_LHR_AMS.csv', sep=";", parse_dates=True)
 
@@ -38,7 +38,7 @@ createInputCSV(df,df_2)
 ## new csv : lifecycle = end
 createOutputCSV(df,df_2)
 
-
+'''
 print("##############################################################")
 ## LabelEncoder
 print("#########################Label Encoder#########################")
@@ -49,6 +49,13 @@ df_encoded_input.to_csv('Data/df_encoded_input.csv', index=False)
 newdf = pd.read_csv('Data/activityEndDf.csv')
 df_encoded_output = encodeStringColumn(newdf)
 df_encoded_output.to_csv('Data/df_encoded_output.csv', index=False)
+
+
+text_columns = []
+for column in newdf.columns:
+    if newdf[column].dtype == 'object':
+        text_columns.append(column)
+
 
 df_encoded_input = pd.read_csv('Data/df_encoded_input.csv')
 df_encoded_output = pd.read_csv('Data/df_encoded_output.csv')
@@ -66,7 +73,7 @@ print("1.1 Decision Tree -- Input DataObject")
 clf = DecisionTreeClassifier(random_state=1234)
 model = classfications.show_classification_report(clf,x_train,y_train,x_test,y_test)
 all_features.remove('mainShipmentRouteNumber')
-rules,input_dict = decision_tree_rules(model,all_features , ['Connection','Drive','Load','Pause'],'input')
+rules,input_dict = decision_tree_rules(model,all_features , ['Connection','Drive','Load','Pause'],'input',text_columns)
 print(input_dict)
 for r in rules:
     print(r)
@@ -80,7 +87,7 @@ x_train,x_test,y_train,y_test = split_data(X,y,test_size=0.3,select_column='main
 clf = DecisionTreeClassifier(random_state=1234)
 model = classfications.show_classification_report(clf,x_train,y_train,x_test,y_test)
 all_features.remove('mainShipmentRouteNumber')
-rules,output_dict = decision_tree_rules(model,all_features , ['Connection','Drive','Load','Pause'],'output')
+rules,output_dict = decision_tree_rules(model,all_features , ['Connection','Drive','Load','Pause'],'output',text_columns)
 print(output_dict)
 for r in rules:
     print(r)

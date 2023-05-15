@@ -1,7 +1,7 @@
 from sklearn.tree import _tree
 import numpy as np
 import numpy
-def decision_tree_rules(tree, feature_names, class_names, dataobject_type):
+def decision_tree_rules(tree, feature_names, class_names, dataobject_type,text_columns):
     tree_ = tree.tree_
     feature_name = [
         feature_names[i] if i != _tree.TREE_UNDEFINED else "undefined!"
@@ -17,9 +17,9 @@ def decision_tree_rules(tree, feature_names, class_names, dataobject_type):
             name = feature_name[node]
             threshold = tree_.threshold[node]
             p1, p2 = list(path), list(path)
-            p1 += [f"({name} <= {np.round(threshold, 3)})"]
+            p1 += [f"{name} <= {np.round(threshold, 3)}"]
             recurse(tree_.children_left[node], p1, paths)
-            p2 += [f"({name} > {np.round(threshold, 3)})"]
+            p2 += [f"{name} > {np.round(threshold, 3)}"]
             recurse(tree_.children_right[node], p2, paths)
         else:
             path += [(tree_.value[node], tree_.n_node_samples[node])]
@@ -49,6 +49,20 @@ def decision_tree_rules(tree, feature_names, class_names, dataobject_type):
                 rule += " and "
                 state_str += ","
             rule += str(p)
+            #check p
+            print(str(p))
+            if ">" in str(p):
+                feature = str(p).split(">")[0]
+                split_feature = feature.split('_')[0]
+                print(split_feature)
+                if split_feature in text_columns:
+                    p = feature + ": True"
+            else:
+                feature = str(p).split("<=")[0]
+                split_feature = feature.split('_')[0]
+                if split_feature in text_columns:
+                    p = feature + ": False"
+
             state_str += str(p)
         print(state_str)
         DataObjects_dict['state'] = state_str
