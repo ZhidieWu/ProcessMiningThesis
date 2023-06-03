@@ -1,99 +1,99 @@
 {
     "DataObjects": [
         {
-            "state": "speed <= 41.0,country_FR : False,city_Hank : False,speed <= 21.0",
+            "state": "speed <= 39.0,country_FR : False,city_Hank : False,speed <= 21.0",
             "artifact": "Container",
-            "targetRef": [
+            "sourceRef": [
                 {
                     "name": "Drive"
                 }
             ]
         },
         {
-            "state": "speed > 41.0,city_London Heathrow Airport : False,speed <= 88.0,speed <= 83.0",
+            "state": "speed > 39.0,city_London Heathrow Airport : False,city_Slough : False,city_Hank : False,country_GB : False",
             "artifact": "Container",
-            "targetRef": [
+            "sourceRef": [
                 {
                     "name": "Pause"
                 }
             ]
         },
         {
-            "state": "speed > 41.0,city_London Heathrow Airport : True",
+            "state": "speed > 39.0,city_London Heathrow Airport : True",
             "artifact": "Container",
-            "targetRef": [
+            "sourceRef": [
                 {
                     "name": "Load"
                 }
             ]
         },
         {
-            "state": "speed <= 41.0,country_FR : True",
+            "state": "speed <= 39.0,country_FR : False,city_Hank : False,speed > 21.0,speed > 24.0",
             "artifact": "Container",
-            "targetRef": [
-                {
-                    "name": "Connection"
-                }
-            ]
-        },
-        {
-            "state": "speed <= 41.0,country_FR : False,city_Hank : False,speed > 21.0,speed > 24.0",
-            "artifact": "Container",
-            "targetRef": [
+            "sourceRef": [
                 {
                     "name": "Drive"
                 }
             ]
         },
         {
-            "state": "speed > 41.0,city_London Heathrow Airport : False,speed <= 88.0,speed > 83.0,speed > 85.0",
+            "state": "speed <= 39.0,country_FR : True",
             "artifact": "Container",
-            "targetRef": [
+            "sourceRef": [
+                {
+                    "name": "Connection"
+                }
+            ]
+        },
+        {
+            "state": "speed > 39.0,city_London Heathrow Airport : False,city_Slough : False,city_Hank : False,country_GB : True,speed <= 79.0",
+            "artifact": "Container",
+            "sourceRef": [
                 {
                     "name": "Pause"
                 }
             ]
         },
         {
-            "state": "speed > 41.0,city_London Heathrow Airport : False,speed <= 88.0,speed > 83.0,speed <= 85.0",
+            "state": "speed <= 39.0,country_FR : False,city_Hank : True",
             "artifact": "Container",
-            "targetRef": [
-                {
-                    "name": "Load"
-                }
-            ]
-        },
-        {
-            "state": "speed <= 41.0,country_FR : False,city_Hank : True",
-            "artifact": "Container",
-            "targetRef": [
+            "sourceRef": [
                 {
                     "name": "Connection"
                 }
             ]
         },
         {
-            "state": "speed <= 41.0,country_FR : False,city_Hank : False,speed > 21.0,speed <= 24.0",
+            "state": "speed > 39.0,city_London Heathrow Airport : False,city_Slough : True",
             "artifact": "Container",
-            "targetRef": [
-                {
-                    "name": "Connection"
-                }
-            ]
-        },
-        {
-            "state": "speed > 41.0,city_London Heathrow Airport : False,speed > 88.0,city_UNK : True",
-            "artifact": "Container",
-            "targetRef": [
+            "sourceRef": [
                 {
                     "name": "Load"
                 }
             ]
         },
         {
-            "state": "speed > 41.0,city_London Heathrow Airport : False,speed > 88.0,city_UNK : False",
+            "state": "speed > 39.0,city_London Heathrow Airport : False,city_Slough : False,city_Hank : True",
             "artifact": "Container",
-            "targetRef": [
+            "sourceRef": [
+                {
+                    "name": "Connection"
+                }
+            ]
+        },
+        {
+            "state": "speed > 39.0,city_London Heathrow Airport : False,city_Slough : False,city_Hank : False,country_GB : True,speed > 79.0",
+            "artifact": "Container",
+            "sourceRef": [
+                {
+                    "name": "Drive"
+                }
+            ]
+        },
+        {
+            "state": "speed <= 39.0,country_FR : False,city_Hank : False,speed > 21.0,speed <= 24.0",
+            "artifact": "Container",
+            "sourceRef": [
                 {
                     "name": "Connection"
                 }

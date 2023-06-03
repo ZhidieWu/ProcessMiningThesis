@@ -2,7 +2,7 @@ import pandas as pd
 import classfications
 #decision tree
 from sklearn.tree import DecisionTreeClassifier
-from classficationrules import decision_tree_rules
+from classficationrules import new_decision_tree_rules
 #Random forest
 from sklearn.ensemble import RandomForestClassifier
 #knn
@@ -16,6 +16,9 @@ from sklearn.naive_bayes import  MultinomialNB
 # ## Preprocess
 from preprocess import createInputCSV
 from preprocess import createOutputCSV
+from preprocess import createInputObjectCSV
+from preprocess import createOutputObjectCSV
+from preprocess import createCSVFortDataObject
 from encoder import encodeStringColumn
 from splitdata import split_data
 #json
@@ -26,30 +29,29 @@ from processJson import processjson
 ############### Preprocess ##############
 
 print("#########################Preprocess#########################")
-df = pd.read_csv('Data/results_LHR_AMS.csv', sep=";", parse_dates=True)
+#df = pd.read_csv('Data/results_LHR_AMS.csv', sep=";", parse_dates=True)
 
 # ## LHR_AMS
-df_2 = pd.read_csv('Data/LHR_AMS.csv', sep=";", parse_dates=True)
+df_2 = pd.read_csv('Data/new_LHR_AMS.csv', sep=";", parse_dates=True)
 
 # ## add column name
 df_2.columns = ["mainShipmentRouteNumber", "speed", "time", "truckNumber", "timestamp", "shipmentEndCity",
-                "shipmentStartCity", "city", "country"]
+                "shipmentStartCity", "city", "country","activity"]
 ## new csv : lifecycle = started
-createInputCSV(df,df_2)
+#createInputObjectCSV(df_2)
 ## new csv : lifecycle = end
-createOutputCSV(df,df_2)
-
-
+#createOutputObjectCSV(df_2)
+createCSVFortDataObject(df_2,"mainShipmentRouteNumber")
 print("##############################################################")
 ## LabelEncoder
 print("#########################Label Encoder#########################")
-start_newdf = pd.read_csv('Data/activityStartDf.csv')
-df_encoded_input = encodeStringColumn(start_newdf)
-df_encoded_input.to_csv('Data/df_encoded_input.csv', index=False)
+newdf = pd.read_csv('Data/activityPairDf.csv')
+df_encoded_input = encodeStringColumn(newdf)
+df_encoded_input.to_csv('Data/pair_encoded_input.csv', index=False)
 
-newdf = pd.read_csv('Data/activityEndDf.csv')
-df_encoded_output = encodeStringColumn(newdf)
-df_encoded_output.to_csv('Data/df_encoded_output.csv', index=False)
+#newdf = pd.read_csv('Data/activityEndDf.csv')
+#df_encoded_output = encodeStringColumn(newdf)
+#df_encoded_output.to_csv('Data/df_encoded_output.csv', index=False)
 
 
 text_columns = []
@@ -58,8 +60,9 @@ for column in newdf.columns:
         text_columns.append(column)
 
 
-df_encoded_input = pd.read_csv('Data/df_encoded_input.csv')
-df_encoded_output = pd.read_csv('Data/df_encoded_output.csv')
+df_encoded_input = pd.read_csv('Data/pair_encoded_input.csv')
+#df_encoded_output = pd.read_csv('Data/df_encoded_output.csv')
+
 print("##############################################################")
 ############### Decision Tree #################
 ##input
@@ -74,11 +77,13 @@ print("1.1 Decision Tree -- Input DataObject")
 clf = DecisionTreeClassifier(random_state=1234)
 model = classfications.show_classification_report(clf,x_train,y_train,x_test,y_test)
 all_features.remove('mainShipmentRouteNumber')
-rules,input_dict = decision_tree_rules(model,all_features , start_newdf['activity'].unique(),'input',text_columns)
+print(newdf['activity'].unique())
+rules,input_dict = new_decision_tree_rules(model,all_features ,newdf['activity'].unique(),'input',text_columns)
 print(input_dict)
 for r in rules:
     print(r)
 ##output
+'''
 print("1.2 Decision Tree -- Output DataObject")
 all_features = df_encoded_output.columns.tolist()
 all_features.remove('activity')
@@ -106,6 +111,7 @@ print("5. Multinomial Naive Bayes Classifier")
 clf = MultinomialNB(alpha=0.01)
 classfications.show_classification_report(clf,x_train,y_train,x_test,y_test)
 print("##############################################################")
+'''
 
 # json file
 print("############################json############################")
@@ -115,6 +121,7 @@ with open("Data/input_dataobject.json","w") as f:
 
 #with open("Data/input_dataobject.json","r") as input_json:
 #    input_dict = json.load(input_json)
+'''
 #for output
 #with open("Data/output_dataobject.json","r") as output_json:
 #    output_dict = json.load(output_json)
@@ -127,3 +134,4 @@ print(result_dict)
 with open("Data/final_dataobject.json","w") as f:
     json.dump(result_dict,f,indent=4,ensure_ascii=False)
 print("##############################################################")
+'''
