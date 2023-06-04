@@ -30,9 +30,9 @@ from processJson import processjson
 
 print("#########################Preprocess#########################")
 #df = pd.read_csv('Data/results_LHR_AMS.csv', sep=";", parse_dates=True)
-
+'''
 # ## LHR_AMS
-df_2 = pd.read_csv('Data/new_LHR_AMS.csv', sep=";", parse_dates=True)
+df_2 = pd.read_csv('Data/newnewnew2.csv', sep=";", parse_dates=True)
 
 # ## add column name
 df_2.columns = ["mainShipmentRouteNumber", "speed", "time", "truckNumber", "timestamp", "shipmentEndCity",
@@ -41,11 +41,13 @@ df_2.columns = ["mainShipmentRouteNumber", "speed", "time", "truckNumber", "time
 #createInputObjectCSV(df_2)
 ## new csv : lifecycle = end
 #createOutputObjectCSV(df_2)
-createCSVFortDataObject(df_2,"mainShipmentRouteNumber")
+createCSVFortDataObject(df_2,"mainShipmentRouteNumber")'''
 print("##############################################################")
 ## LabelEncoder
 print("#########################Label Encoder#########################")
 newdf = pd.read_csv('Data/activityPairDf.csv')
+newdf = newdf.sort_values('activity', ascending=True)
+newdf.to_csv('Data/activityPairDf.csv', index=False)
 df_encoded_input = encodeStringColumn(newdf)
 df_encoded_input.to_csv('Data/pair_encoded_input.csv', index=False)
 

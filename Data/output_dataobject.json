@@ -1,101 +1,65 @@
 {
     "DataObjects": [
         {
-            "state": "speed <= 39.0,country_FR : False,city_Hank : False,speed <= 21.0",
+            "state": "country_GB : True,speed <= 40.0,city_London Heathrow Airport : True",
             "artifact": "Container",
             "sourceRef": [
                 {
-                    "name": "Drive"
+                    "name": "Attach container"
                 }
             ]
         },
         {
-            "state": "speed > 39.0,city_London Heathrow Airport : False,city_Slough : False,city_Hank : False,country_GB : False",
+            "state": "country_GB : False,speed > 41.0",
             "artifact": "Container",
             "sourceRef": [
                 {
-                    "name": "Pause"
+                    "name": "Travel in EU"
                 }
             ]
         },
         {
-            "state": "speed > 39.0,city_London Heathrow Airport : True",
+            "state": "country_GB : False,speed <= 41.0",
             "artifact": "Container",
             "sourceRef": [
                 {
-                    "name": "Load"
+                    "name": "Take break in EU"
                 }
             ]
         },
         {
-            "state": "speed <= 39.0,country_FR : False,city_Hank : False,speed > 21.0,speed > 24.0",
+            "state": "country_GB : True,speed <= 40.0,city_London Heathrow Airport : False,city_Lower Kingswood : False,city_UNK : False",
             "artifact": "Container",
             "sourceRef": [
                 {
-                    "name": "Drive"
+                    "name": "Take Channel tunnel"
                 }
             ]
         },
         {
-            "state": "speed <= 39.0,country_FR : True",
+            "state": "country_GB : True,speed > 40.0",
             "artifact": "Container",
             "sourceRef": [
                 {
-                    "name": "Connection"
+                    "name": "Travel in UK"
                 }
             ]
         },
         {
-            "state": "speed > 39.0,city_London Heathrow Airport : False,city_Slough : False,city_Hank : False,country_GB : True,speed <= 79.0",
+            "state": "country_GB : True,speed <= 40.0,city_London Heathrow Airport : False,city_Lower Kingswood : True",
             "artifact": "Container",
             "sourceRef": [
                 {
-                    "name": "Pause"
+                    "name": "Attach container"
                 }
             ]
         },
         {
-            "state": "speed <= 39.0,country_FR : False,city_Hank : True",
+            "state": "country_GB : True,speed <= 40.0,city_London Heathrow Airport : False,city_Lower Kingswood : False,city_UNK : True",
             "artifact": "Container",
             "sourceRef": [
                 {
-                    "name": "Connection"
-                }
-            ]
-        },
-        {
-            "state": "speed > 39.0,city_London Heathrow Airport : False,city_Slough : True",
-            "artifact": "Container",
-            "sourceRef": [
-                {
-                    "name": "Load"
-                }
-            ]
-        },
-        {
-            "state": "speed > 39.0,city_London Heathrow Airport : False,city_Slough : False,city_Hank : True",
-            "artifact": "Container",
-            "sourceRef": [
-                {
-                    "name": "Connection"
-                }
-            ]
-        },
-        {
-            "state": "speed > 39.0,city_London Heathrow Airport : False,city_Slough : False,city_Hank : False,country_GB : True,speed > 79.0",
-            "artifact": "Container",
-            "sourceRef": [
-                {
-                    "name": "Drive"
-                }
-            ]
-        },
-        {
-            "state": "speed <= 39.0,country_FR : False,city_Hank : False,speed > 21.0,speed <= 24.0",
-            "artifact": "Container",
-            "sourceRef": [
-                {
-                    "name": "Connection"
+                    "name": "Take break in UK"
                 }
             ]
         }

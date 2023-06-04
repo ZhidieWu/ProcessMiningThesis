@@ -24,7 +24,7 @@ from processJson import processjson
 
 
 ############### Preprocess ##############
-
+'''
 print("#########################Preprocess#########################")
 df = pd.read_csv('Data/results_LHR_AMS.csv', sep=";", parse_dates=True)
 
@@ -38,16 +38,22 @@ df_2.columns = ["mainShipmentRouteNumber", "speed", "time", "truckNumber", "time
 createInputCSV(df,df_2)
 ## new csv : lifecycle = end
 createOutputCSV(df,df_2)
-
+'''
 
 print("##############################################################")
 ## LabelEncoder
 print("#########################Label Encoder#########################")
-start_newdf = pd.read_csv('Data/activityStartDf.csv')
+start_newdf = pd.read_csv('Data/OriginalStart.csv')
+start_newdf = start_newdf.sort_values('activity', ascending=True)
+start_newdf.to_csv('Data/OriginalStart.csv', index=False)
+start_newdf = pd.read_csv('Data/OriginalStart.csv')
 df_encoded_input = encodeStringColumn(start_newdf)
 df_encoded_input.to_csv('Data/df_encoded_input.csv', index=False)
 
-newdf = pd.read_csv('Data/activityEndDf.csv')
+newdf = pd.read_csv('Data/OriginalEnd.csv')
+newdf = start_newdf.sort_values('activity', ascending=True)
+newdf.to_csv('Data/OriginalEnd.csv', index=False)
+newdf = pd.read_csv('Data/OriginalEnd.csv')
 df_encoded_output = encodeStringColumn(newdf)
 df_encoded_output.to_csv('Data/df_encoded_output.csv', index=False)
 
@@ -74,6 +80,7 @@ print("1.1 Decision Tree -- Input DataObject")
 clf = DecisionTreeClassifier(random_state=1234)
 model = classfications.show_classification_report(clf,x_train,y_train,x_test,y_test)
 all_features.remove('mainShipmentRouteNumber')
+print(start_newdf['activity'].unique())
 rules,input_dict = decision_tree_rules(model,all_features , start_newdf['activity'].unique(),'input',text_columns)
 print(input_dict)
 for r in rules:
@@ -88,6 +95,7 @@ x_train,x_test,y_train,y_test = split_data(X,y,test_size=0.3,select_column='main
 clf = DecisionTreeClassifier(random_state=1234)
 model = classfications.show_classification_report(clf,x_train,y_train,x_test,y_test)
 all_features.remove('mainShipmentRouteNumber')
+print(newdf['activity'].unique())
 rules,output_dict = decision_tree_rules(model,all_features , newdf['activity'].unique(),'output',text_columns)
 print(output_dict)
 for r in rules:
