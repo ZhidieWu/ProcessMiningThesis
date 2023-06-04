@@ -25,7 +25,10 @@ from splitdata import split_data
 import json
 from processJson import processjson
 
-
+############### Artifact ################
+artifact_dict = {'Truck':['speed','country','city'],'Container':[]}
+selected_artifact = 'Truck'
+instanceId = 'mainShipmentRouteNumber'
 ############### Preprocess ##############
 
 print("#########################Preprocess#########################")
@@ -46,7 +49,10 @@ print("##############################################################")
 ## LabelEncoder
 print("#########################Label Encoder#########################")
 newdf = pd.read_csv('Data/activityPairDf.csv')
+artifact_dict[selected_artifact].append(instanceId)
+artifact_dict[selected_artifact].append('activity')
 newdf = newdf.sort_values('activity', ascending=True)
+newdf = newdf[artifact_dict[selected_artifact]]
 newdf.to_csv('Data/activityPairDf.csv', index=False)
 df_encoded_input = encodeStringColumn(newdf)
 df_encoded_input.to_csv('Data/pair_encoded_input.csv', index=False)
@@ -73,14 +79,14 @@ all_features.remove('activity')
 X = df_encoded_input[all_features]
 y = df_encoded_input[['activity']]
 print("##########################split data##########################")
-x_train,x_test,y_train,y_test = split_data(X,y,test_size=0.3,select_column='mainShipmentRouteNumber')
+x_train,x_test,y_train,y_test = split_data(X,y,test_size=0.3,select_column=instanceId)
 print("########################Classification########################")
 print("1.1 Decision Tree -- Input DataObject")
 clf = DecisionTreeClassifier(random_state=1234)
 model = classfications.show_classification_report(clf,x_train,y_train,x_test,y_test)
-all_features.remove('mainShipmentRouteNumber')
+all_features.remove(instanceId)
 print(newdf['activity'].unique())
-rules,input_dict = new_decision_tree_rules(model,all_features ,newdf['activity'].unique(),'input',text_columns)
+rules,input_dict = new_decision_tree_rules(model,all_features ,newdf['activity'].unique(),'input',text_columns,selected_artifact)
 print(input_dict)
 for r in rules:
     print(r)

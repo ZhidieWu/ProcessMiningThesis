@@ -91,7 +91,7 @@ def decision_tree_rules(tree, feature_names, class_names, dataobject_type,text_c
 
     return rules,dictforjson
 
-def new_decision_tree_rules(tree, feature_names, class_names, dataobject_type,text_columns):
+def new_decision_tree_rules(tree, feature_names, class_names, dataobject_type,text_columns,selected_artifact):
     tree_ = tree.tree_
     feature_name = [
         feature_names[i] if i != _tree.TREE_UNDEFINED else "undefined!"
@@ -170,7 +170,7 @@ def new_decision_tree_rules(tree, feature_names, class_names, dataobject_type,te
             l = np.argmax(classes)
             #(proba: {np.round(100.0 * classes[l] / np.sum(classes), 2)
             rule += f"class: {class_names[l]}%)"
-            DataObjects_dict['artifact'] = "Container"
+            DataObjects_dict['artifact'] = selected_artifact
             source_target_activity = class_names[l].split(",")
             print(source_target_activity[0])
             print(source_target_activity[1])
