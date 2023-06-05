@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<pnml>
+  <net id="" type="http://www.pnml.org/version-2009/grammar/pnmlcoremodel">
+    <name>
+      <text></text>
+    </name>
+    <page id="n0">
+      <place id="ent_Activity_0kes2i0">
+        <name>
+          <text>ent_Activity_0kes2i0</text>
+        </name>
+      </place>
+      <place id="source">
+        <name>
+          <text>source</text>
+        </name>
+        <initialMarking>
+          <text>1</text>
+        </initialMarking>
+      </place>
+      <place id="exi_Gateway_0hnz1rz">
+        <name>
+          <text>exi_Gateway_0hnz1rz</text>
+        </name>
+      </place>
+      <place id="ent_Event_0gwang9">
+        <name>
+          <text>ent_Event_0gwang9</text>
+        </name>
+      </place>
+      <place id="sink">
+        <name>
+          <text>sink</text>
+        </name>
+      </place>
+      <place id="ent_Activity_17gj83s">
+        <name>
+          <text>ent_Activity_17gj83s</text>
+        </name>
+      </place>
+      <place id="ent_Gateway_1pqy6ee">
+        <name>
+          <text>ent_Gateway_1pqy6ee</text>
+        </name>
+      </place>
+      <transition id="Activity_0tja5kh">
+        <name>
+          <text>Drive to manufacturer</text>
+        </name>
+      </transition>
+      <transition id="Activity_14v8scf">
+        <name>
+          <text>Travel on highway</text>
+        </name>
+      </transition>
+      <transition id="Activity_09krwm6">
+        <name>
+          <text>Inspect goods</text>
+        </name>
+      </transition>
+      <transition id="Event_0gwang9">
+        <name>
+          <text>Event_0gwang9</text>
+        </name>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="59a77bff-50c3-4360-a324-714243b065c5"/>
+      </transition>
+      <transition id="Activity_17gj83s">
+        <name>
+          <text>Attach container</text>
+        </name>
+      </transition>
+      <transition id="074be280-d209-4534-a7fc-9110c3e3b93b">
+        <name>
+          <text>074be280-d209-4534-a7fc-9110c3e3b93b</text>
+        </name>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="ff70a37d-bf61-4b61-a1d3-ce9ab380c81d"/>
+      </transition>
+      <transition id="Activity_0hurp4h">
+        <name>
+          <text>Take a break</text>
+        </name>
+      </transition>
+      <transition id="Activity_0kes2i0">
+        <name>
+          <text>Detach container</text>
+        </name>
+      </transition>
+      <transition id="Activity_1lsced3">
+        <name>
+          <text>Fill in container</text>
+        </name>
+      </transition>
+      <transition id="sfl_Flow_129pglt">
+        <name>
+          <text>sfl_Flow_129pglt</text>
+        </name>
+        <toolspecific tool="ProM" version="6.4" activity="$invisible$" localNodeID="991b98a7-75b8-4caf-bfe2-cb2cdf564277"/>
+      </transition>
+      <arc id="140279279171904" source="Activity_09krwm6" target="ent_Activity_0kes2i0"/>
+      <arc id="140279279101984" source="exi_Gateway_0hnz1rz" target="sfl_Flow_129pglt"/>
+      <arc id="140279279173440" source="Activity_14v8scf" target="exi_Gateway_0hnz1rz"/>
+      <arc id="140279278997568" source="source" target="074be280-d209-4534-a7fc-9110c3e3b93b"/>
+      <arc id="140279279173344" source="Activity_0kes2i0" target="sink"/>
+      <arc id="140279279190848" source="Activity_0hurp4h" target="ent_Gateway_1pqy6ee"/>
+      <arc id="140279279190752" source="074be280-d209-4534-a7fc-9110c3e3b93b" target="ent_Gateway_1pqy6ee"/>
+      <arc id="140279279190560" source="Activity_1lsced3" target="ent_Activity_17gj83s"/>
+      <arc id="140279279170752" source="sfl_Flow_129pglt" target="sink"/>
+      <arc id="140279279191232" source="Activity_0tja5kh" target="sink"/>
+      <arc id="140279279190464" source="Activity_17gj83s" target="sink"/>
+      <arc id="140279279001312" source="ent_Event_0gwang9" target="Event_0gwang9"/>
+      <arc id="140279279039200" source="ent_Activity_17gj83s" target="Activity_17gj83s"/>
+      <arc id="140279279191712" source="source" target="Activity_0tja5kh"/>
+      <arc id="140279279191616" source="source" target="Activity_09krwm6"/>
+      <arc id="140279279072640" source="ent_Activity_0kes2i0" target="Activity_0kes2i0"/>
+      <arc id="140279279191520" source="exi_Gateway_0hnz1rz" target="Activity_0hurp4h"/>
+      <arc id="140279279191424" source="source" target="Activity_1lsced3"/>
+      <arc id="140279279173056" source="Event_0gwang9" target="sink"/>
+      <arc id="140279279191328" source="ent_Gateway_1pqy6ee" target="Activity_14v8scf"/>
+    </page>
+    <finalmarkings>
+      <marking>
+        <place idref="sink">
+          <text>1</text>
+        </place>
+      </marking>
+    </finalmarkings>
+  </net>
+</pnml>
