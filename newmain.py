@@ -24,7 +24,7 @@ from splitdata import split_data
 #json
 import json
 from processJson import processjson
-
+from processJson import merge_state_from_json
 ############### Artifact ################
 artifact_dict = {'Truck':['speed','country','city'],'Container':[]}
 selected_artifact = 'Truck'
@@ -90,6 +90,7 @@ rules,input_dict = new_decision_tree_rules(model,all_features ,newdf['activity']
 print(input_dict)
 for r in rules:
     print(r)
+
 ##output
 '''
 print("1.2 Decision Tree -- Output DataObject")
@@ -126,6 +127,7 @@ print("############################json############################")
 with open("Data/input_dataobject.json","w") as f:
     json.dump(input_dict,f,indent=4,ensure_ascii=False)
 
+result_dict = merge_state_from_json(input_dict,text_columns)
 
 #with open("Data/input_dataobject.json","r") as input_json:
 #    input_dict = json.load(input_json)
@@ -136,10 +138,10 @@ with open("Data/input_dataobject.json","w") as f:
 with open("Data/output_dataobject.json","w") as f:
     json.dump(output_dict,f,indent=4,ensure_ascii=False)
 result_dict = processjson(input_dict,output_dict)
-
+'''
 #result_dict
 print(result_dict)
 with open("Data/final_dataobject.json","w") as f:
     json.dump(result_dict,f,indent=4,ensure_ascii=False)
 print("##############################################################")
-'''
+
