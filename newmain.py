@@ -106,7 +106,7 @@ rules,output_dict = decision_tree_rules(model,all_features , newdf['activity'].u
 print(output_dict)
 for r in rules:
     print(r)
-
+'''
 print("2. Random Forest")
 clf = RandomForestClassifier(n_estimators=2)
 model = classfications.show_classification_report(clf,x_train,y_train,x_test,y_test)
@@ -120,7 +120,7 @@ print("5. Multinomial Naive Bayes Classifier")
 clf = MultinomialNB(alpha=0.01)
 classfications.show_classification_report(clf,x_train,y_train,x_test,y_test)
 print("##############################################################")
-'''
+
 
 # json file
 print("############################json############################")
