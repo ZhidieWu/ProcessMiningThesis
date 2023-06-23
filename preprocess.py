@@ -7,6 +7,7 @@ def createCSVFortDataObject(df,activity_cycle_column):
     newdf = pd.read_csv('Data/activityPairDf.csv')
 
     last_activity = 'start'
+    print(df.iloc[0][activity_cycle_column])
     current_cycle_column = df[activity_cycle_column][0]
 
     new_csv_index = 0

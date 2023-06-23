@@ -18,15 +18,18 @@ from splitdata import split_data
 #json
 import json
 from processJson import merge_state_from_json
-############### Artifact ################
 
-def enrichBPMN(csv_file,artifact_dict,selected_artifact,instanceId):
+def enrichBPMN(csv_file,artifact_dict,selected_artifact,instanceId,timestamp):
     ############### Preprocess ##############
 
     print("#########################Preprocess#########################")
 
     # ## csv file
-    createCSVFortDataObject(csv_file,instanceId)
+    # sort by timestamp and process instance id
+    sorted_df = csv_file.sort_values(by=[instanceId,timestamp])
+    sorted_df.to_csv('Data/sorted_file.csv', index=False)
+    sorted_df = pd.read_csv('Data/sorted_file.csv', parse_dates=True)
+    createCSVFortDataObject(sorted_df,instanceId)
     print("##############################################################")
     ## LabelEncoder
     print("#########################Label Encoder#########################")
