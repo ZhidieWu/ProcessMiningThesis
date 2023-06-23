@@ -33,10 +33,11 @@ PyCharm
 2. Input the data log that meet the input conditions in PyCharm. It is recommended that the data log file be placed in the Data folder.
 3. Open mian.py to configure the parameters needed for Transformation:  
    [csv_file]: Set the path to the path where the data log was placed in the previous step.  
+   [timestamp]: Select a column in the csv as the timestamp.  
    [artifact_dict]: Set the value of the dictionary. The key of the dictionary is the name of the artifact. The value of the dictionary is the name of the column in the csv corresponding to the artifact in the key.  
    [selected_artifact]: Select the artifact to be generated for the enriched bpmn collaboration diagram. It should be one of the keys of the artifact_dict.  
    [instanceId]: Select a column in the csv as the process instance.
-4. Run main.py get data objects JSON file. The JSON file is in the \Data folder named final_dataobject.json 
+5. Run main.py get data objects JSON file. The JSON file is in the \Data folder named final_dataobject.json 
 
 Java  
 
