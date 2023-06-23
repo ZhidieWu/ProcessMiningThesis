@@ -38,7 +38,8 @@ PyCharm
    [instanceId]: Select a column in the csv as the process instance.
 4. Run main.py get data objects JSON file. The JSON file is in the \Data folder named final_dataobject.json 
 
-Java
+Java  
+
 5. Download the code from the second link in the above installation (BPMN2ArtifactViewProcess) and configure the java environment.
 6. Input data objects JSON file and collaboration diagram in IntelliJ IDEA. It is recommended to place these two files in the \BPMN2ArtifactViewProcess\models\DataObject folder.  
 7. Open \BPMN2ArtifactViewProcess\src\Test\java\StepTest\DataObjectTest.java  
