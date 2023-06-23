@@ -1,95 +1,5 @@
 from sklearn.tree import _tree
 import numpy as np
-import numpy
-def decision_tree_rules(tree, feature_names, class_names, dataobject_type,text_columns):
-    tree_ = tree.tree_
-    feature_name = [
-        feature_names[i] if i != _tree.TREE_UNDEFINED else "undefined!"
-        for i in tree_.feature
-    ]
-
-    paths = []
-    path = []
-
-    def recurse(node, path, paths):
-
-        if tree_.feature[node] != _tree.TREE_UNDEFINED:
-            name = feature_name[node]
-            threshold = tree_.threshold[node]
-            p1, p2 = list(path), list(path)
-            p1 += [f"{name} <= {np.round(threshold, 3)}"]
-            recurse(tree_.children_left[node], p1, paths)
-            p2 += [f"{name} > {np.round(threshold, 3)}"]
-            recurse(tree_.children_right[node], p2, paths)
-        else:
-            path += [(tree_.value[node], tree_.n_node_samples[node])]
-            paths += [path]
-
-    recurse(0, path, paths)
-
-    # sort by samples count
-    samples_count = [p[-1][1] for p in paths]
-    ii = list(np.argsort(samples_count))
-    paths = [paths[i] for i in reversed(ii)]
-
-    dictforjson = {}
-    dictforjson['DataObjects'] = []
-    rules = []
-    for path in paths:
-        DataObjects_dict = {}
-        object_dict = {}
-        ref_list = []
-        state_str = ""
-
-
-
-        rule = "if "
-
-
-        for p in path[:-1]:
-            if rule != "if ":
-                rule += " and "
-                state_str += ","
-            rule += str(p)
-            #check p
-            print(str(p))
-            if ">" in str(p):
-                feature = str(p).split(">")[0]
-                split_feature = feature.split('_')[0]
-                print(split_feature)
-                if split_feature in text_columns:
-                    p = feature + ": True"
-            else:
-                feature = str(p).split("<=")[0]
-                split_feature = feature.split('_')[0]
-                if split_feature in text_columns:
-                    p = feature + ": False"
-
-            state_str += str(p)
-        print(state_str)
-        DataObjects_dict['state'] = state_str
-
-
-        rule += " then "
-        if class_names is None:
-            rule += "response: " + str(np.round(path[-1][0][0][0], 3))
-        else:
-            classes = path[-1][0][0]
-            l = np.argmax(classes)
-            #(proba: {np.round(100.0 * classes[l] / np.sum(classes), 2)
-            rule += f"class: {class_names[l]}%)"
-            DataObjects_dict['artifact'] = "Container"
-            object_dict['name'] = str(class_names[l])
-            ref_list.append(object_dict)
-            if dataobject_type == 'input':
-                DataObjects_dict['targetRef'] = ref_list
-            else:
-                DataObjects_dict['sourceRef'] = ref_list
-        rule += f" | based on {path[-1][1]:,} samples"
-        rules += [rule]
-        dictforjson['DataObjects'].append(DataObjects_dict)
-
-    return rules,dictforjson
 
 def new_decision_tree_rules(tree, feature_names, class_names, dataobject_type,text_columns,selected_artifact):
     tree_ = tree.tree_
@@ -172,8 +82,6 @@ def new_decision_tree_rules(tree, feature_names, class_names, dataobject_type,te
             rule += f"class: {class_names[l]}%)"
             DataObjects_dict['artifact'] = selected_artifact
             source_target_activity = class_names[l].split(",")
-            print(source_target_activity[0])
-            print(source_target_activity[1])
             source_object_dict['name'] = str(source_target_activity[0])
             source_list.append(source_object_dict)
             target_object_dict['name'] = str(source_target_activity[1])

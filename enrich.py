@@ -7,23 +7,16 @@ from classficationrules import new_decision_tree_rules
 from sklearn.ensemble import RandomForestClassifier
 #knn
 from sklearn.neighbors import KNeighborsClassifier
-#Logistic Regression Classfier
-from sklearn.linear_model import LogisticRegression
 # Gradient Boosting Decision Tree
 from sklearn.ensemble import GradientBoostingClassifier
 #Naive Bayes
 from sklearn.naive_bayes import  MultinomialNB
 # ## Preprocess
-from preprocess import createInputCSV
-from preprocess import createOutputCSV
-from preprocess import createInputObjectCSV
-from preprocess import createOutputObjectCSV
 from preprocess import createCSVFortDataObject
 from encoder import encodeStringColumn
 from splitdata import split_data
 #json
 import json
-from processJson import processjson
 from processJson import merge_state_from_json
 ############### Artifact ################
 
@@ -70,10 +63,8 @@ def enrichBPMN(csv_file,artifact_dict,selected_artifact,instanceId):
     clf = DecisionTreeClassifier(random_state=1234)
     model = classfications.show_classification_report(clf, x_train, y_train, x_test, y_test)
     all_features.remove(instanceId)
-    print(newdf['activity'].unique())
     rules, input_dict = new_decision_tree_rules(model, all_features, newdf['activity'].unique(), 'input', text_columns,
                                                 selected_artifact)
-    print(input_dict)
     for r in rules:
         print(r)
 
@@ -89,7 +80,7 @@ def enrichBPMN(csv_file,artifact_dict,selected_artifact,instanceId):
     print("5. Multinomial Naive Bayes Classifier")
     clf = MultinomialNB(alpha=0.01)
     classfications.show_classification_report(clf, x_train, y_train, x_test, y_test)
-    print("##############################################################")
+    print("############################################################")
 
     # json file
     print("############################json############################")
@@ -99,8 +90,8 @@ def enrichBPMN(csv_file,artifact_dict,selected_artifact,instanceId):
     result_dict = merge_state_from_json(input_dict, text_columns)
 
     # result_dict
-    print(result_dict)
     with open("Data/final_dataobject.json", "w") as f:
         json.dump(result_dict, f, indent=4, ensure_ascii=False)
+    print("process json file successful")
     print("##############################################################")
 
