@@ -16,6 +16,8 @@ def split_data(X,y,test_size,select_column):
         train_x_select_column_random_sample = random.sample(select_column_type, k=int(select_column_type_train_count))
         print(select_column_type)
         print(train_x_select_column_random_sample)
+        #for train_x_select_column in train_x_select_column_random_sample:
+
         for train_x_select_column in train_x_select_column_random_sample:
             for index, row in X.iterrows():
                 new_x_row = X.iloc[index].drop(select_column)
